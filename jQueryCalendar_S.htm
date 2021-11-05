@@ -107,8 +107,45 @@ ui-datepicker tbody tr {
 
 jQuery(
 	function() {
-
+    $("#datePicker").datepicker(
+      {
+        dayNamesMin: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],//this is how days will show at top of calendar
+        dateFormat: "MM d, yy"
+        //changeMonth: true, //<--- dropdown menu to select month
+        //changeYear: true, //<--- dropdown years
+        //showOtherMonths: true
+        //minDate: 0 //<---no previous dates can be chosen
+      }
+    );//end date picker
 		
+    $("#addBtn").click(
+      function(){
+        const dateTxt = $("#datePicker").val()//the val method can ONLY be used with FORM ELEMENTS
+        $("#dateInfo").append("The date chosen is " + dateTxt);
+        $("#dateInfo").append("<br><br>");
+
+        const dateObject = $("#datePicker").datepicker("getDate");//get FULL date from datepicker
+        $("#dateInfo").append("The full information of the date is " + dateObject);
+        $("#dateInfo").append("<br><br>");
+
+        const numOfDayData = $.datepicker.formatDate("dd", dateObject);
+        $("#dateInfo").append("The number of the day is " + numOfDayData);
+        $("#dateInfo").append("<br><br>");
+
+        const monthData = $.datepicker.formatDate("MM", dateObject);
+        $("#dateInfo").append("The month is " + monthData);
+        $("#dateInfo").append("<br><br>");      
+
+        const yearData = $.datepicker.formatDate("yy", dateObject);
+        $("#dateInfo").append("The year is " + yearData);
+        $("#dateInfo").append("<br><br>");      
+      
+        const dayOfWeekData = $.datepicker.formatDate("DD", dateObject);
+        $("#dateInfo").append("The day of the week is " + dayOfWeekData);
+        $("#dateInfo").append("<br><br>");   
+      }
+    );//end click event
+
 	}//end of master function
 );//end of jQuery master container
 
