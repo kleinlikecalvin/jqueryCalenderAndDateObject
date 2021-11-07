@@ -9,21 +9,82 @@
 </style>
 <script>
 // why January 1st, 1970? https://unix.stackexchange.com/questions/26205/why-does-unix-time-start-at-1970-01-01-->
-
+	const now = new Date();
 	
 	//*****Part 2 of the demo*****
-	
+	document.addEventListener("DOMContentLoaded", function(){
+		document.getElementById("bday").addEventListener("click", function(){
+			document.getElementById("dateBox").innerHTML = daysTil(berfdai) + " days until my berfdai heyyyyyyy 🥳";
+			document.getElementById("dateBox").className = "dateBox";
+		});//end bday click
+		document.getElementById("halloween").addEventListener("click", function () {
+			document.getElementById("dateBox").innerHTML = daysTil(spookyTime) + " days until Halloween babbyyyyyy 👻 😈";
+			document.getElementById("dateBox").className = "dateBox";
+		});//end bday click	});//end DOMContentLoaded event
+	});
+	const thisYear = now.getFullYear();
+	const nextYear = thisYear + 1;
+	const berfdai = new Date(thisYear, 5, 1, 24); 
+	//months start with 1 for january so june = 5 + 1
+	//Used 24 hrs so no matter what time it's used then you'll receive the full 24 hours of a day
+	//new Date (year, month, day, hours)
+	if(berfdai < now){
+		berfdai.setYear(nextYear);
+	}
 
-		
+	const spookyTime = new Date(thisYear, 9, 31, 24);
+	if(spookyTime < now){
+		spookyTime.setYear(nextYear);
+	}
+
+	function daysTil(theDate){
+
+		return Math.floor((theDate.getTime() - now.getTime())/86400000);
+	}	
 	//*****Part 1 of the demo*****
 	
-	const month = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+	const month = new Array("Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre");
 
+	if(now.getDate() != 1 && now.getDate() != 2 && now.getDate() != 3 && now.getDate() != 21 && now.getDate() != 22 && now.getDate() != 23 && now.getDate() != 31){
+		now.getDate() + "th";
+	}else{
+		switch(now.getDate()){
+			case 3:
+				now.getDate() + "rd";
+				break;
+			case 23:
+				now.getDate() + "rd";
+				break; 
+			case 1:
+				now.getDate() + "st";
+				break;
+			case 21:
+				now.getDate() + "st";
+				break;
+			case 31:
+				now.getDate() + "st";
+				break;	
+			case 2:
+				now.getDate() + "nd";
+				break;
+			case 22:
+				now.getDate() + "nd";
+				break;
+		}
+	}
 
+	document.write("<div style='font-family: arial; font-size: 15px'>");
+	document.write("Today's date is " + now);	
+	document.write("<p>L'année est " + now.getFullYear() + "</p>");
+	document.write("<p>Le mois est " + month[now.getMonth()] + "</p>");
+	document.write("<p>Les millisecondes depuis le premiere de Janvier 1970 sont " + now.getTime() + "</p>");
+	document.write("<p>Les jours depuis le premiere de Janvier 1970 sont " + Math.floor(now.getTime()/86400000) + "</p>");
+	//get the days since 1/1/1970 86 million 400 thousand ms in a day. Divide by this number to get days
+	document.write("<p>Aujourd'hui est " + now.toDateString() + "</p>");
+	//le plus simples façon à obtenir le date
+	document.write("<p>Le nombre du jour est " + now.getDate() + "th</p>");
 
-		document.write("<div style='font-family: arial; font-size: 15px'>");
-
-		document.write("</div><br><br>");
+	document.write("</div><br><br>");
 	
 
 
@@ -32,7 +93,7 @@
 <body>
 <span style="cursor: pointer" id="bday">Days until my birthday (June 1st)</span><br><br><br>
 
-<span style="cursor: pointer" id="xmas">Days until Halloween (October 31st)</span><br><br><br>
+<span style="cursor: pointer" id="halloween">Days until Halloween (October 31st)</span><br><br><br>
 
 <div id="dateBox"></div>
 </body>
